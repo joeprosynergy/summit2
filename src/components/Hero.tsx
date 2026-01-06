@@ -1,0 +1,90 @@
+'use client';
+
+import Image from 'next/image';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
+import Link from 'next/link';;
+import { cloudinaryImages, getMobileHeroImage, IMAGES } from '@/lib/cloudinary';
+
+const badges = [
+  { icon: Truck, label: 'Free Delivery (50mi)' },
+  { icon: CreditCard, label: 'No Credit Check Financing' },
+  { icon: Shield, label: '50-Year Warranty' },
+];
+
+const Hero = () => {
+  return (
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Image using picture element for responsive loading */}
+      <picture className="absolute inset-0">
+        <source
+          media="(max-width: 768px)"
+          srcSet={getMobileHeroImage(IMAGES.heroShed)}
+        />
+        <Image src={cloudinaryImages.heroShed} className="w-full h-full object-cover" fetchPriority="high" decoding="async" width={1600} height={900} width={75} height={75} />
+      </picture>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
+
+      {/* Content */}
+      <div className="relative z-10 container-custom py-32 lg:py-40">
+        <div className="max-w-3xl">
+          <p className="text-secondary font-heading text-lg md:text-xl uppercase tracking-widest mb-4 animate-fade-in-up">
+            Summit Portable Buildings
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            Get the Storage Space You Need <span className="text-secondary">Without the Hassle</span>
+          </h1>
+          <p className="text-lg md:text-xl text-primary-foreground/80 mb-4 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            Custom storage buildings designed for your property, built by craftsmen, delivered to your door.
+          </p>
+          <p className="text-primary-foreground/70 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            Stop living with clutter. Design your perfect shed online in minutes and we'll handle the rest.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="xl">
+                Design Your Shed Now
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </a>
+            <Link href="/buyers-guide">
+              <Button variant="heroOutline" size="xl">
+                Get Free Buying Guide
+              </Button>
+            </Link>
+          </div>
+
+          <p className="text-primary-foreground/60 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+            Serving Missouri, Illinois, Kentucky & Arkansas since 2008
+          </p>
+
+          {/* Badges */}
+          <div className="flex flex-wrap gap-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            {badges.map((badge) => (
+              <div
+                key={badge.label}
+                className="flex items-center gap-2 text-primary-foreground/90"
+              >
+                <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                  <badge.icon className="w-4 h-4 text-secondary" />
+                </div>
+                <span className="text-sm font-medium">{badge.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-primary-foreground/40 rounded-full flex justify-center pt-2">
+          <div className="w-1 h-2 bg-secondary rounded-full" />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
