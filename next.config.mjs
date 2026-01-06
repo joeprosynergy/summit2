@@ -1,23 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [],
-  },
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
+    domains: ['res.cloudinary.com'],
   },
   experimental: {
-    serverActions: {
-      enabled: true
-    },
-    experimental: {
-      optimizePackageImports: [] //"lodash", "date-fns"
-    },
-    optimizeServerReact: false,
+    serverActions: true,
   },
-  webpack: (config) => {
-    return config
-  }
 };
 
 export default nextConfig;
